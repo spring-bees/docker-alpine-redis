@@ -3,6 +3,10 @@
 if [ "$REDIS_PASSWORD" != "" ]; then
   echo "init redis password"
   echo -e "\nrequirepass $REDIS_PASSWORD" >> /redis/redis.conf
+
+  if [ $CLUSTER_ANNOUNCE_IP ]; then
+    echo -e "\nmasterauth $REDIS_PASSWORD" >> /redis/redis.conf
+  fi
 fi
 
 if [ "$REDIS_MAXMEMORY" != "" ]; then
@@ -26,4 +30,4 @@ fi
 
 if [ $CLUSTER_ANNOUNCE_BUS_PORT ]; then
     sed -i "s/cluster-announce-bus-port 16379/cluster-announce-bus-port $CLUSTER_ANNOUNCE_BUS_PORT/g" /redis/redis.conf
-fi    
+fi
