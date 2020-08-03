@@ -36,6 +36,8 @@ services:
 
 启动 6个 节点，Redis 端口为 7000-7005, Cluster bus 端口 17000-17005（端口为Redis端口基础上+1000）
 
+**如果您要设置密码，请在集群创建完毕后再设置**
+
 ```yaml
 version: '3.2'
 services:
@@ -128,4 +130,16 @@ networks:
 
 ```
 redis-cli --cluster create 10.1.57.50:7000 10.1.57.50:7001 10.1.57.50:7002 10.1.57.50:7003 10.1.57.50:7004 10.1.57.50:7005 --cluster-replicas 1
+```
+
+## 设置集群密码
+
+登录每个节点，执行如下命令
+
+```
+$ redis-cli -h 10.1.57.50 -p 7000 -c
+> config set masterauth 123123
+> config set requirepass 123123
+> auth 123123
+> config rewrite
 ```
