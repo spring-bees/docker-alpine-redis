@@ -1,12 +1,16 @@
 # REDIS
 
+Docker Run
 
-docker run \
+```
+docker run -d \
     --name redis \
     -p 6379:6379 \
     -e REDIS_PASSWORD=mypassword \
     coolbeevip/docker-alpine-redis
+```
 
+Docker Compose UP
 
 ```yaml
 version: '3.2'
@@ -23,9 +27,9 @@ services:
 
 ## 参数
 
-REDIS_PASSWORD 密码，默认空
+* REDIS_PASSWORD 密码，默认空
 
-REDIS_MAXMEMORY 最大内存，默认 30MB
+* REDIS_MAXMEMORY 最大内存，默认 30MB
 
 
 ## Redis Cluster
@@ -111,6 +115,14 @@ networks:
   nc-network:
     external: true
 ```
+
+参数
+
+* CLUSTER_ANNOUNCE_IP 映射到集群的地址
+
+* CLUSTER_ANNOUNCE_PORT 映射到集群的端口
+
+* CLUSTER_ANNOUNCE_BUS_PORT 映射到集群的总线端口
 
 登录任意节点，执行以下命令，根据提示自动创建 3 个 master 和 3 个 slave 节点
 
