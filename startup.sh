@@ -10,6 +10,7 @@ if [ $REDIS_CLUSTER_NAME ]; then
 
     if [ ! -f "/redis/redis.conf" ]; then
         cp /tmp/redis.conf /redis/redis.conf
+        sh /conf_script.sh
     fi
 
     sed -i "s/cluster-enabled no/cluster-enabled yes/g" /redis/redis.conf
@@ -17,6 +18,7 @@ if [ $REDIS_CLUSTER_NAME ]; then
 else
     if [ ! -f "/redis/redis.conf" ]; then
         cp /tmp/redis.conf /redis/redis.conf
+        sh /conf_script.sh
     fi
     sed -i "s/cluster-enabled yes/cluster-enabled no/g" /redis/redis.conf
 fi
