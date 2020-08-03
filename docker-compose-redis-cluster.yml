@@ -1,38 +1,3 @@
-# REDIS
-
-
-docker run \
-    --name redis \
-    -p 6379:6379 \
-    -e REDIS_PASSWORD=mypassword \
-    coolbeevip/docker-alpine-redis
-
-
-```yaml
-version: '3.2'
-services:
-  redis:
-    image: coolbeevip/docker-alpine-redis
-    container_name: redis
-    ports:
-      - 6379:6379
-    environment:
-      - REDIS_PASSWORD=mypassword
-      - REDIS_MAXMEMORY=41943040
-```    
-
-## 参数
-
-REDIS_PASSWORD 密码，默认空
-
-REDIS_MAXMEMORY 最大内存，默认 30MB
-
-
-## Redis Cluster
-
-启动 6个 节点，Redis 端口为 7000-7005, Cluster bus 端口 17000-17005（端口为Redis端口基础上+1000）
-
-```yaml
 version: '3.2'
 services:
   redis-7000:
@@ -110,10 +75,3 @@ services:
 networks:
   nc-network:
     external: true
-```
-
-登录任意节点，执行以下命令，根据提示自动创建 3 个 master 和 3 个 slave 节点
-
-```
-redis-cli --cluster create 10.1.57.50:7000 10.1.57.50:7001 10.1.57.50:7002 10.1.57.50:7003 10.1.57.50:7004 10.1.57.50:7005 --cluster-replicas 1
-```
