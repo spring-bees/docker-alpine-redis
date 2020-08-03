@@ -1,6 +1,6 @@
 # REDIS
 
-Docker Run
+## Docker Run
 
 ```
 docker run -d \
@@ -10,7 +10,7 @@ docker run -d \
     coolbeevip/docker-alpine-redis
 ```
 
-Docker Compose UP
+## Docker Compose UP
 
 ```yaml
 version: '3.2'
@@ -25,16 +25,9 @@ services:
       - REDIS_MAXMEMORY=41943040
 ```    
 
-## 参数
-
-* REDIS_PASSWORD 密码，默认空
-
-* REDIS_MAXMEMORY 最大内存，默认 30MB
-
-
 ## Redis Cluster
 
-启动 6个 节点，Redis 端口为 7000-7005, Cluster bus 端口 17000-17005（端口为Redis端口基础上+1000）
+以下举例在一台服务器 `10.1.57.50` 上启动 6个 节点，Redis 端口为 7000-7005, Cluster bus 端口 17000-17005（端口为Redis端口基础上+10000）
 
 **如果您要设置密码，请在集群创建完毕后再设置**
 
@@ -118,21 +111,13 @@ networks:
     external: true
 ```
 
-参数
-
-* CLUSTER_ANNOUNCE_IP 映射到集群的地址
-
-* CLUSTER_ANNOUNCE_PORT 映射到集群的端口
-
-* CLUSTER_ANNOUNCE_BUS_PORT 映射到集群的总线端口
-
 登录任意节点，执行以下命令，根据提示自动创建 3 个 master 和 3 个 slave 节点
 
 ```
 redis-cli --cluster create 10.1.57.50:7000 10.1.57.50:7001 10.1.57.50:7002 10.1.57.50:7003 10.1.57.50:7004 10.1.57.50:7005 --cluster-replicas 1
 ```
 
-## 设置集群密码
+设置集群密码
 
 登录每个节点，执行如下命令
 
@@ -143,3 +128,15 @@ $ redis-cli -h 10.1.57.50 -p 7000 -c
 > auth 123123
 > config rewrite
 ```
+
+## 参数说明
+
+* REDIS_PASSWORD 密码，默认空
+
+* REDIS_MAXMEMORY 最大内存，默认 30MB
+
+* CLUSTER_ANNOUNCE_IP 映射到集群的地址
+
+* CLUSTER_ANNOUNCE_PORT 映射到集群的端口
+
+* CLUSTER_ANNOUNCE_BUS_PORT 映射到集群的总线端口
